@@ -10,9 +10,21 @@ exporters:
   debug:
     verbosity: detailed
 
+processors:
+  tail_sampling/over-5s:
+    decision_wait: 5s
+    policies:
+      [
+        {
+          name: latency-over-5s,
+          type: latency,
+          latency: { threshold_ms: 5000 }
+        }
+      ]
+
 service:
   pipelines:
     traces:
       receivers: [otlp]
-      processors: []
+      processors: [tail_sampling/over-5s]
       exporters: [debug]
