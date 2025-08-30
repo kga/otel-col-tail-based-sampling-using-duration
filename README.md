@@ -1,15 +1,6 @@
-# OpenTelemetry Collector Tail-based sampling using duration
+# トレースのサンプリングを観察する
 
-## setup
-
-- bundle install
-- install k6
-
-## run
-
-```bash
-ruby app.rb
-```
+## OpenTelemetry Collector の立ち上げ
 
 ```bash
 docker run \
@@ -19,6 +10,23 @@ docker run \
   otel/opentelemetry-collector-contrib:latest
 ```
 
+## トレースの生成
+
+### Ruby アプリケーションからトレースを送信する場合
+
 ```bash
+bundle install
+ruby app.rb
+```
+
+```bash
+brew install k6
 k6 run script.js
+```
+
+### telemetrygen を使ってトレースを送信する場合
+
+```bash
+go install github.com/open-telemetry/opentelemetry-collector-contrib/cmd/telemetrygen@latest
+./gentraces.sh
 ```
